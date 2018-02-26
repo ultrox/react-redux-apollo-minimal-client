@@ -1,0 +1,9 @@
+@import "../theme/sass/theme.scss";
+
+.Header-AppBar-Toolbar {
+  @include gridbase(1);
+  display: grid !important;
+  grid-auto-flow: column;
+  grid-template-columns: auto 1fr auto;
+  align-content: end;
+}

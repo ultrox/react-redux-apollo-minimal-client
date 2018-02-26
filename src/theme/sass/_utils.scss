@@ -1,0 +1,11 @@
+$unit: 8px;
+
+@function getUnits($unitFor) {
+  @return $unit * $unitFor;
+}
+
+@mixin gridbase($spaceUnits){
+  display: grid;
+  grid-column-gap: getUnits($spaceUnits);
+  grid-row-gap: getUnits($spaceUnits);
+}
