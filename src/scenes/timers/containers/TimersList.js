@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {withStyles} from "material-ui/styles";
-import {connect} from 'react-redux'
 import TimerListSingle from "../components/TimerListSingle";
 import List from 'material-ui/List/List';
 

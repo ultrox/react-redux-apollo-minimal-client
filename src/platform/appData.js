@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Home from "material-ui-icons/Home";
-import ListCheck from "material-ui-icons/PlaylistAddCheck";
-import Announcement from "material-ui-icons/Announcement";
+import Home from "@material-ui/icons/Home";
+import ListCheck from "@material-ui/icons/PlaylistAddCheck";
+import Announcement from "@material-ui/icons/Announcement";
 
 const navRoutes = [
     {

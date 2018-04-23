@@ -12,10 +12,8 @@ import Button from 'material-ui/Button';
 import Tooltip from 'material-ui/Tooltip';
 import Menu, {MenuItem} from 'material-ui/Menu';
 
-import MenuIcon from 'material-ui-icons/Menu';
-import ViewModule from 'material-ui-icons/ViewModule';
-import Input from 'material-ui-icons/Input';
-import CallEnd from 'material-ui-icons/CallEnd';
+import MenuIcon from '@material-ui/icons/Menu';
+import ViewModule from '@material-ui/icons/ViewModule';
 
 import {AUTH_TOKEN} from "../constants";
 

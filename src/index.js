@@ -7,12 +7,10 @@ import ReactDOM from 'react-dom';
 import localForage from 'localforage';
 import {ApolloProvider} from 'react-apollo'
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import {ConnectedRouter} from 'react-router-redux';
 import {getStoredState} from 'redux-persist';
 import {Provider} from 'react-redux';
-import {trigger} from 'redial';
 //--
-import App from './App';
+import App from './Application';
 import registerServiceWorker from './registerServiceWorker';
 import client from './apollo-client/client';
 import {createApp, socket} from './app';
