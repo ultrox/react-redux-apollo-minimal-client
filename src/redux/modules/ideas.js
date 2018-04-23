@@ -8,87 +8,82 @@ export const VISIBILITY_COMPLETE = "redux-example/ideas/visfilter/COMPLETED";
 export const VISIBILITY_ACTIVE = "redux-example/ideas/visfilter/ACTIVE";
 
 const INITIAL_STATE = {
-    ideas: [],
-    filter: VISIBILITY_ALL,
+  ideas: [],
+  filter: VISIBILITY_ALL,
 };
 
 export const defaultIdea = {
-    id: '',
-    text: '',
-    completed: false,
-    effort: 0,
-    value: 0,
+  id: "",
+  text: "",
+  completed: false,
+  effort: 0,
+  value: 0,
 };
 
 export default function reducer(state = INITIAL_STATE, action = {}) {
-    switch (action.type) {
-        case IDEA_ADD:
-            return {
-                ...state,
-                ideas: [
-                    ...state.ideas,
-                    Object.assign(
-                        {},
-                        defaultIdea,
-                        {
-                            id: action.id,
-                            text: action.text,
-                            completed: false
-                        })
-                ]
-            };
+  switch (action.type) {
+    case IDEA_ADD:
+      return {
+        ...state,
+        ideas: [
+          ...state.ideas,
+          Object.assign({}, defaultIdea, {
+            id: action.id,
+            text: action.text,
+            completed: false,
+          }),
+        ],
+      };
 
-        case IDEA_TOGGLE:
-            return {
-                ...state,
-                ideas: state.ideas.map(idea => {
-                    return (idea.id === action.id)
-                        ? {...idea, completed: !idea.completed}
-                        : idea
-                })
-            };
+    case IDEA_TOGGLE:
+      return {
+        ...state,
+        ideas: state.ideas.map(idea => {
+          return idea.id === action.id
+            ? { ...idea, completed: !idea.completed }
+            : idea;
+        }),
+      };
 
-        case IDEA_UPDATE:
-            return {
-                ...state,
-                ideas: state.ideas.map(idea => {
-                    return (idea.id === action.id)
-                        ? Object.assign({}, idea, defaultIdea, action)
-                        : idea
-                })
-            };
+    case IDEA_UPDATE:
+      return {
+        ...state,
+        ideas: state.ideas.map(idea => {
+          return idea.id === action.id
+            ? Object.assign({}, idea, defaultIdea, action)
+            : idea;
+        }),
+      };
 
-        case IDEA_VISIBLE_SET:
-            return {
-                ...state,
-                filter: action.filter
-            };
+    case IDEA_VISIBLE_SET:
+      return {
+        ...state,
+        filter: action.filter,
+      };
 
-        default:
-            return state;
-    }
+    default:
+      return state;
+  }
 }
 
 let nextIdeaId = 0;
 
-export const addIdea = (text) => {
-    return {
-        type: IDEA_ADD,
-        id: nextIdeaId++,
-        text
-    }
+export const addIdea = text => {
+  return {
+    type: IDEA_ADD,
+    id: nextIdeaId++,
+    text,
+  };
 };
-export const toggleIdea = (id) => {
-    return {
-        type: IDEA_TOGGLE,
-        id
-    }
+export const toggleIdea = id => {
+  return {
+    type: IDEA_TOGGLE,
+    id,
+  };
 };
-export const setVisibilityFilter = (filter) => {
-    return {
-        type: IDEA_VISIBLE_SET,
-        filter
-    }
+export const setVisibilityFilter = filter => {
+  return {
+    type: IDEA_VISIBLE_SET,
+    filter,
+  };
 };
-
-

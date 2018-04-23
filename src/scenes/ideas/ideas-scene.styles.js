@@ -1,7 +1,7 @@
 export const styles = theme => {
-    return {
-        root: {
-            background: theme.palette.background.paper,
-        }
-    }
+  return {
+    root: {
+      background: theme.palette.background.paper,
+    },
+  };
 };

@@ -1,11 +1,11 @@
-const LOAD = 'redux-example/chat/LOAD';
-const LOAD_SUCCESS = 'redux-example/chat/LOAD_SUCCESS';
-const LOAD_FAIL = 'redux-example/chat/LOAD_FAIL';
-const ADD_MESSAGE = 'redux-example/chat/ADD_MESSAGE';
+const LOAD = "redux-example/chat/LOAD";
+const LOAD_SUCCESS = "redux-example/chat/LOAD_SUCCESS";
+const LOAD_FAIL = "redux-example/chat/LOAD_FAIL";
+const ADD_MESSAGE = "redux-example/chat/ADD_MESSAGE";
 
 const initialState = {
   loaded: false,
-  messages: []
+  messages: [],
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -13,26 +13,26 @@ export default function reducer(state = initialState, action = {}) {
     case LOAD:
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     case LOAD_SUCCESS:
       return {
         ...state,
         loading: false,
         loaded: true,
-        messages: action.result.data.reverse()
+        messages: action.result.data.reverse(),
       };
     case LOAD_FAIL:
       return {
         ...state,
         loading: false,
         loaded: false,
-        error: action.error
+        error: action.error,
       };
     case ADD_MESSAGE:
       return {
         ...state,
-        messages: state.messages.concat(action.message)
+        messages: state.messages.concat(action.message),
       };
     default:
       return state;
@@ -47,12 +47,12 @@ export function load() {
   return {
     types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
     promise: ({ app }) =>
-      app.service('messages').find({
+      app.service("messages").find({
         query: {
           $sort: { createdAt: -1 },
-          $limit: 25
-        }
-      })
+          $limit: 25,
+        },
+      }),
   };
 }
 

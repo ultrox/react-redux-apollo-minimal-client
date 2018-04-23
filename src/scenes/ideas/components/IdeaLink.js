@@ -1,25 +1,28 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const IdeaLink = ({active, children, onClidk: onClick}) => {
-    if (active) {
-        return <span>{children}</span>
-    }
+const IdeaLink = ({ active, children, onClidk: onClick }) => {
+  if (active) {
+    return <span>{children}</span>;
+  }
 
-    return (
-        <a href=""
-           onClick={e => {
-               e.preventDefault();
-               onClick()
-           }}
-        >{children}</a>
-    )
+  return (
+    <a
+      href=""
+      onClick={e => {
+        e.preventDefault();
+        onClick();
+      }}
+    >
+      {children}
+    </a>
+  );
 };
 
 IdeaLink.propTypes = {
-    active: PropTypes.bool.isRequired,
-    children: PropTypes.node.isRequired,
-    onClick: PropTypes.func.isRequired,
-}
+  active: PropTypes.bool.isRequired,
+  children: PropTypes.node.isRequired,
+  onClick: PropTypes.func.isRequired,
+};
 
 export default IdeaLink;

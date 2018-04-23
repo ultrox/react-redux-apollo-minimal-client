@@ -1,4 +1,4 @@
-import { matchRoutes } from 'react-router-config';
+import { matchRoutes } from "react-router-config";
 
 function getComponents(match) {
   return match.map(v => v.route.component).reduce(async (result, component) => {

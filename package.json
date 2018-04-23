@@ -74,9 +74,12 @@
     "babel-eslint": "^8.0.1",
     "babel-jest": "^22.0.3",
     "babel-loader": "^7.0.0",
-    "babel-plugin-transform-react-jsx-source": "^6.22.0"
+    "babel-plugin-transform-react-jsx-source": "^6.22.0",
+    "prettier": "1.12.1"
   },
   "scripts": {
+    "p:check": "prettier --list-different 'src/**/*.js'",
+    "p:format": "prettier --trailing-comma es5 --write 'src/**/*.js'",
     "start-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
     "start-js": "PORT=3003 react-scripts start",
     "start": "npm-run-all -p start-css start-js",

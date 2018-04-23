@@ -1,22 +1,22 @@
-import { SubmissionError } from 'redux-form';
-import cookie from 'js-cookie';
+import { SubmissionError } from "redux-form";
+import cookie from "js-cookie";
 
-const LOAD = 'redux-example/auth/LOAD';
-const LOAD_SUCCESS = 'redux-example/auth/LOAD_SUCCESS';
-const LOAD_FAIL = 'redux-example/auth/LOAD_FAIL';
-const LOGIN = 'redux-example/auth/LOGIN';
-const LOGIN_SUCCESS = 'redux-example/auth/LOGIN_SUCCESS';
-const LOGIN_FAIL = 'redux-example/auth/LOGIN_FAIL';
-const REGISTER = 'redux-example/auth/REGISTER';
-const REGISTER_SUCCESS = 'redux-example/auth/REGISTER_SUCCESS';
-const REGISTER_FAIL = 'redux-example/auth/REGISTER_FAIL';
-const LOGOUT = 'redux-example/auth/LOGOUT';
-const LOGOUT_SUCCESS = 'redux-example/auth/LOGOUT_SUCCESS';
-const LOGOUT_FAIL = 'redux-example/auth/LOGOUT_FAIL';
+const LOAD = "redux-example/auth/LOAD";
+const LOAD_SUCCESS = "redux-example/auth/LOAD_SUCCESS";
+const LOAD_FAIL = "redux-example/auth/LOAD_FAIL";
+const LOGIN = "redux-example/auth/LOGIN";
+const LOGIN_SUCCESS = "redux-example/auth/LOGIN_SUCCESS";
+const LOGIN_FAIL = "redux-example/auth/LOGIN_FAIL";
+const REGISTER = "redux-example/auth/REGISTER";
+const REGISTER_SUCCESS = "redux-example/auth/REGISTER_SUCCESS";
+const REGISTER_FAIL = "redux-example/auth/REGISTER_FAIL";
+const LOGOUT = "redux-example/auth/LOGOUT";
+const LOGOUT_SUCCESS = "redux-example/auth/LOGOUT_SUCCESS";
+const LOGOUT_FAIL = "redux-example/auth/LOGOUT_FAIL";
 
 const initialState = {
   loaded: false,
-  user: null
+  user: null,
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -24,7 +24,7 @@ export default function reducer(state = initialState, action = {}) {
     case LOAD:
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     case LOAD_SUCCESS:
       return {
@@ -32,19 +32,19 @@ export default function reducer(state = initialState, action = {}) {
         loading: false,
         loaded: true,
         accessToken: action.result.accessToken,
-        user: action.result.user
+        user: action.result.user,
       };
     case LOAD_FAIL:
       return {
         ...state,
         loading: false,
         loaded: false,
-        error: action.error
+        error: action.error,
       };
     case LOGIN:
       return {
         ...state,
-        loggingIn: true
+        loggingIn: true,
       };
     case LOGIN_SUCCESS:
       return {
@@ -52,47 +52,47 @@ export default function reducer(state = initialState, action = {}) {
         loggingIn: false,
         loaded: true,
         accessToken: action.result.accessToken,
-        user: action.result.user
+        user: action.result.user,
       };
     case LOGIN_FAIL:
       return {
         ...state,
         loggingIn: false,
-        loginError: action.error
+        loginError: action.error,
       };
     case REGISTER:
       return {
         ...state,
-        registeringIn: true
+        registeringIn: true,
       };
     case REGISTER_SUCCESS:
       return {
         ...state,
-        registeringIn: false
+        registeringIn: false,
       };
     case REGISTER_FAIL:
       return {
         ...state,
         registeringIn: false,
-        registerError: action.error
+        registerError: action.error,
       };
     case LOGOUT:
       return {
         ...state,
-        loggingOut: true
+        loggingOut: true,
       };
     case LOGOUT_SUCCESS:
       return {
         ...state,
         loggingOut: false,
         accessToken: null,
-        user: null
+        user: null,
       };
     case LOGOUT_FAIL:
       return {
         ...state,
         loggingOut: false,
-        logoutError: action.error
+        logoutError: action.error,
       };
     default:
       return state;
@@ -101,7 +101,7 @@ export default function reducer(state = initialState, action = {}) {
 
 const catchValidation = error => {
   if (error.message) {
-    if (error.message === 'Validation failed' && error.data) {
+    if (error.message === "Validation failed" && error.data) {
       throw new SubmissionError(error.data);
     }
     throw new SubmissionError({ _error: error.message });
@@ -112,9 +112,11 @@ const catchValidation = error => {
 function setCookie({ app }) {
   return async response => {
     const payload = await app.passport.verifyJWT(response.accessToken);
-    const options = payload.exp ? { expires: new Date(payload.exp * 1000) } : undefined;
+    const options = payload.exp
+      ? { expires: new Date(payload.exp * 1000) }
+      : undefined;
 
-    cookie.set('feathers-jwt', response.accessToken, options);
+    cookie.set("feathers-jwt", response.accessToken, options);
   };
 }
 
@@ -122,16 +124,16 @@ function setToken({ client, app, restApp }) {
   return response => {
     const { accessToken } = response;
 
-    app.set('accessToken', accessToken);
-    restApp.set('accessToken', accessToken);
+    app.set("accessToken", accessToken);
+    restApp.set("accessToken", accessToken);
     client.setJwtToken(accessToken);
   };
 }
 
 function setUser({ app, restApp }) {
   return response => {
-    app.set('user', response.user);
-    restApp.set('user', response.user);
+    app.set("user", response.user);
+    restApp.set("user", response.user);
   };
 }
 
@@ -152,7 +154,7 @@ export function load() {
       setToken({ client, app, restApp })(response);
       setUser({ app, restApp })(response);
       return response;
-    }
+    },
   };
 }
 
@@ -161,9 +163,9 @@ export function register(data) {
     types: [REGISTER, REGISTER_SUCCESS, REGISTER_FAIL],
     promise: ({ app }) =>
       app
-        .service('users')
+        .service("users")
         .create(data)
-        .catch(catchValidation)
+        .catch(catchValidation),
   };
 }
 
@@ -174,19 +176,19 @@ export function login(strategy, data) {
       try {
         const response = await app.authenticate({
           ...data,
-          strategy
+          strategy,
         });
         await setCookie({ app })(response);
         setToken({ client, app, restApp })(response);
         setUser({ app, restApp })(response);
         return response;
       } catch (error) {
-        if (strategy === 'local') {
+        if (strategy === "local") {
           return catchValidation(error);
         }
         throw error;
       }
-    }
+    },
   };
 }
 
@@ -196,6 +198,6 @@ export function logout() {
     promise: async ({ client, app, restApp }) => {
       await app.logout();
       setToken({ client, app, restApp })({ accessToken: null });
-    }
+    },
   };
 }
